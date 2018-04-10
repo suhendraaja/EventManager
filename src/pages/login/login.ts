@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { Alert, AlertController, Loading, LoadingController } from 'ionic-angular';
+import {
+  Alert, AlertController,
+  Loading, LoadingController
+} from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { HomePage } from '../../pages/home/home';
 import { AuthProvider } from '../../providers/auth/auth';
@@ -22,7 +25,6 @@ export class LoginPage {
     public authProvider: AuthProvider,
     public formBuilder: FormBuilder) {
 
-    //validasi form
     // validasi form
     this.loginForm = formBuilder.group({
       email: [
@@ -31,29 +33,30 @@ export class LoginPage {
       ],
       password: [
         '',
-        Validators.compose([Validators.required, Validators.minLength(6)])
+        Validators.compose([Validators.required, Validators.minLength(8)])
       ]
     });
 
   }
 
+  // proses login user
   loginUser() {
     // cek apakah email dan password sudah valid
     if (!this.loginForm.valid) {
       console.log(`Form tidak valid: ${this.loginForm.value}`);
     } else {
-      //baca ctrlname
+      // baca formControlName dahulu
       const email = this.loginForm.value.email;
       const password = this.loginForm.value.password;
 
-      //cek dari firebase via provider
+      // cek dari firebase
       this.authProvider.loginUser(email, password).then(
-        authData => {   //resolve
+        authData => {       // resolve
           this.loading.dismiss().then(() => {
             this.navCtrl.setRoot(HomePage);
           });
         },
-        error => {    //reject
+        error => {          // reject
           this.loading.dismiss().then(() => {
             const alert: Alert = this.alertCtrl.create({
               message: error.message,
@@ -64,15 +67,20 @@ export class LoginPage {
             });
             alert.present();
           });
-        });
+        }
+      );
       this.loading = this.loadingCtrl.create();
       this.loading.present();
     }
   }
 
-  //goToSignUp(){  }
+  goToSignup(): void {
+    this.navCtrl.push('SignupPage');
+  }
 
-  // goToResetPassword(){  }
+  goToResetPassword(): void {
+    this.navCtrl.push('ResetPasswordPage');
+  }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad LoginPage');
