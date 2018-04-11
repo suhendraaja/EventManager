@@ -31,6 +31,22 @@ export class EventProvider {
       contact: eventContact
     });
   }
+
+//edit event 
+editEvent(
+  eventName: string,
+  eventDate: string,
+  eventPrice: number,
+  eventContact: string
+): ThenableReference {
+  return this.eventListRef.push({
+    name: eventName,
+    date: eventDate,
+    price: eventPrice * 1,
+    contact: eventContact
+  });
+}
+
   //lihat daftar event
   getEventList(): Reference {
     return this.eventListRef;

@@ -1,0 +1,30 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Form Edit Event</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-item>
+    <ion-label stacked>Nama Event</ion-label>
+    <ion-input [(ngModel)]="eventName" type="text">{{currentEvent?.name}}</ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label stacked>Tanggal Event</ion-label>
+    <ion-datetime displayFormat="D MMM, YYYY" pickerFormat="DD MMMM YYYY" [(ngModel)]="eventDate">{{currentEvent?.date}}</ion-datetime>
+  </ion-item>
+  <ion-item>
+    <ion-label stacked>Harga Event</ion-label>
+    <ion-input [(ngModel)]="eventPrice" type="number">{{currentEvent?.price}}</ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label stacked>Contact Person</ion-label>
+    <ion-input [(ngModel)]="eventContact" type="number">{{currentEvent?.contact}}</ion-input>
+  </ion-item>
+  <button ion-button block color="pink" (click)="editEvent(eventName, eventDate, eventPrice, eventContact)">
+    Simpan Perubahan Event
+  </button>
+</ion-content>
